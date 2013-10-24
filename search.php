@@ -153,13 +153,16 @@
 									$term = strip_tags($term);
 									$term = trim($term);
 									 
-									$sql = mysqli_query("SELECT * FROM 'Products' WHERE 'Product Name' LIKE '%$term%'");
+									$sql = mysqli_query("SELECT * FROM `Products` WHERE `productName` LIKE `%$term%`");
 
 									while ($result = mysqli_fetch_array($sql)){
 										echo '<br/> Price: '.$result['Price'];
 									    echo '<br/> Product Name: '.$result['Product Name'];
 									    echo '<br/><br/>';
 									    }
+
+
+									echo "<b>You Searched For:</b> " . $term; 
 
 									$anymatches=mysqli_num_rows($sql);
 
@@ -168,8 +171,6 @@
 									 echo "Sorry, but we can not find an entry to match your query<br><br>"; 
 									 } 
 									 
-									 //And we remind them what they searched for 
-									 echo "<b>You Searched For:</b> " . $term; 
 									 
 									?>
 					</div>
