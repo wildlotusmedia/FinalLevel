@@ -155,13 +155,14 @@
 									$result = mysqli_query($link, $sql);
 									$numrows = mysqli_num_rows($result);
 
+									echo "<p><b>You Searched For: </b>" . $term  ."</p> ";
+
 									while ($row = mysqli_fetch_array($result)){
-										echo "<p><b>You Searched For: </b>" . $term  ."</p> ";
-										$prod=$row['Product Name'];
+										$prod=$row['productName'];
 										$cate=$row['Category'];
 										$price=$row['Price'];
 										$salprice=$row['Sales Price'];
-										$img=$row['Product Image'];
+										$img=$row['Product_Image'];
 										$ratin=$row['Rating'];
 										$ranking=$row['Ranking'];
 			
@@ -169,9 +170,9 @@
 												<p>New: $$price<br>Used: $$salprice<br> <img src=$ranking alt='Star Ranking'> <br><a href='#' class='btn'>Buy</a></p>";
 									    }
 
-									echo "<p><b>You Searched For: </b>" . $term  ."</p> ";
+									//echo "<p><b>You Searched For: </b>" . $term  ."</p> ";
 
-									 if ($numrows == 0) 
+									 if ($numrows == 0||$term=='') 
 									 { 
 									 echo "<p>Sorry, but your search returned 0 results</p>"; 
 									 } 
