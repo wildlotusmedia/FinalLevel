@@ -7,10 +7,10 @@
 //     </form>
 
 
-//mysqli_connect ("sulley.cah.ucf.edu", "as932055", "01knights!")  or die (mysqli_error());
-//mysqli_select_db ("as932055");
+mysqli_connect ("sulley.cah.ucf.edu", "as932055", "01knights!")  or die (mysqli_error());
+mysqli_select_db ("as932055");
 
-require 'db_connect.php';
+//require 'db_connect.php';
 
 
 

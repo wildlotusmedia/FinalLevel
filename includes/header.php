@@ -13,7 +13,7 @@
 					</div>
 					<div class="threecol">	
 					<div class="dark">
-						 <form action="search.php" method="post" class="search">
+						 <form action="../search.php" method="post" class="search">
                         <input type="text" name="term" value="Search" onclick="this.value = '';" onkeydown="this.style.color = '#4b4b4b';">
                          <input id="search-bar" type="submit" name="search" value=""/>
 						</form>
