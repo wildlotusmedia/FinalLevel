@@ -38,7 +38,10 @@
             <div class="container">
                 <div class="row">
                     <div id="search" class="twelvecol" style="text-align:right;">
-                        <input type="text" id="search-bar" name="filter_name" value="Search" onclick="this.value = '';" onkeydown="this.style.color = '#4b4b4b';">
+                       <form action="search.php" method="post" class="search">
+                        <input type="text" name="term" value="Search" onclick="this.value = '';" onkeydown="this.style.color = '#4b4b4b';">
+                         <input id="search-bar" type="submit" name="search" value=""/>
+                        </form>
                     </div>
                 </div><!--row-->
             </div>
@@ -134,44 +137,49 @@
 						</div>
 					</div>
 					<div class="tencol last"> <!--search area-->
-						<?//search code
+						<?
+									if(isset($_POST['term'])){
 
-									// <form action="search.php" method="post">
-									//      Search: <input type="text" name="term" /><br />
-									//     <input type="submit" name="submit" value="Submit" />
-									//     </form>
-
-
-									mysqli_connect ("sulley.cah.ucf.edu", "as932055", "01knights!")  or die (mysqli_error());
-									mysqli_select_db ("as932055");
+									$link = mysqli_connect ("sulley.cah.ucf.edu", "as932055", "01knights!", "as932055")  or die (mysqli_error());
+									//mysqli_select_db ("as932055");
 
 									//require 'db_connect.php';
 
-									//$term = 'Sonic';
 									$term = $_POST['term'];
 									//$term = strtoupper($term);
 									$term = strip_tags($term);
 									$term = trim($term);
 									 
-									$sql = mysqli_query("SELECT * FROM `Products` WHERE `productName` LIKE `%$term%`");
 
-									while ($result = mysqli_fetch_array($sql)){
-										echo '<br/> Price: '.$result['Price'];
-									    echo '<br/> Product Name: '.$result['Product Name'];
-									    echo '<br/><br/>';
+									$sql = "SELECT * FROM Products WHERE productName LIKE '%$term%' OR 'Category' LIKE '%$term'";
+									$result = mysqli_query($link, $sql);
+									$numrows = mysqli_num_rows($result);
+
+									while ($row = mysqli_fetch_array($result)){
+										echo "<p><b>You Searched For: </b>" . $term  ."</p> ";
+										$prod=$row['Product Name'];
+										$cate=$row['Category'];
+										$price=$row['Price'];
+										$salprice=$row['Sales Price'];
+										$img=$row['Product Image'];
+										$ratin=$row['Rating'];
+										$ranking=$row['Ranking'];
+			
+									echo "<img src='$img' alt='$prod'><br><div class='list'><h2>$prod</h2>
+												<p>New: $$price<br>Used: $$salprice<br> <img src=$ranking alt='Star Ranking'> <br><a href='#' class='btn'>Buy</a></p>";
 									    }
 
+									echo "<p><b>You Searched For: </b>" . $term  ."</p> ";
 
-									echo "<b>You Searched For:</b> " . $term; 
-
-									$anymatches=mysqli_num_rows($sql);
-
-									 if ($anymatches == 0) 
+									 if ($numrows == 0) 
 									 { 
-									 echo "Sorry, but we can not find an entry to match your query<br><br>"; 
+									 echo "<p>Sorry, but your search returned 0 results</p>"; 
 									 } 
-									 
-									 
+   									 mysqli_free_result($result);
+									 }
+									 else{ 
+									echo  "<p>Please enter a search term</p>"; 
+									}
 									?>
 					</div>
 				</div><!--end row-->
