@@ -149,29 +149,48 @@
 									//$term = strtoupper($term);
 									$term = strip_tags($term);
 									$term = trim($term);
-									 
+                                    //$term_c = ;									 
 
-									$sql = "SELECT * FROM Products WHERE productName LIKE '%$term%' OR 'Category' LIKE '%$term'";
+									$sql = "SELECT * FROM Products WHERE product_name LIKE '%$term%' OR 'category' LIKE '%$term'";
 									$result = mysqli_query($link, $sql);
 									$numrows = mysqli_num_rows($result);
 
-									echo "<p><b>You Searched For: </b>" . $term  ."</p> ";
+									echo "<p><b>You Searched For: </b>" . $term  ."<br/></p> ";
 
-									while ($row = mysqli_fetch_array($result)){
-										$prod=$row['productName'];
-										$cate=$row['Category'];
-										$price=$row['Price'];
-										$salprice=$row['Sales Price'];
-										$img=$row['Product_Image'];
-										$ratin=$row['Rating'];
-										$ranking=$row['Ranking'];
+                                    echo "<div class='row product-list-wrap' style='width:auto;'>";
+									
+                                    while ($row = mysqli_fetch_array($result)){
+										$prod=$row['product_name'];
+										$cate=$row['category'];
+										$price=$row['price'];
+										$salprice=$row['sales_price'];
+										$img=$row['product_image'];
+										//$ratin=$row['rating'];
+										//$ranking=$row['ranking'];
 			
-									echo "<img src='$img' alt='$prod'><br><div class='list'><h2>$prod</h2>
-												<p>New: $$price<br>Used: $$salprice<br> <img src=$ranking alt='Star Ranking'> <br><a href='#' class='btn'>Buy</a></p>";
+                                echo "<div class='threecol' style='margin-right: 2.8% !important'><div class='product-wrapper'><div class='image'><img src=".$img." alt='product' /></div>";
+                                echo "<div class='product-infor'><p class='product_name'>". $prod ."</p>";
+                                echo "<p class='product_pr'>$". $price ."</p>";
+                                //echo "<p class='rating'><img src='img/rating-icon.png' alt="rating" /></p><!--rating-->
+                               echo  "</div><p>";
+                                echo "<a class='add-to-cart' href='#'><span><img src='img/shopping-cart-white.png' alt='' /></span>add to cart</a>";
+                                echo "</p></div></div>";
+
+                                //  <div class='twocol last'>
+                                //         <div class='catalog'>
+                                //                 <img src='$img' alt='$prod'>
+                                //                 <br>
+                                //                 <div class='list'>
+                                //                         <h2>$prod</h2>
+                                //                         <p>New: $$price<br>Used: $$salprice<br> <img src=$ranking alt='Star Ranking'> <br><a href='#' class='btn'>Buy</a></p>
+                                                        
+                                //                 </div>                        
+                                //         </div>
+                                // </div>        
 									    }
 
 									//echo "<p><b>You Searched For: </b>" . $term  ."</p> ";
-
+                                        echo "</div></div>";
 									 if ($numrows == 0||$term=='') 
 									 { 
 									 echo "<p>Sorry, but your search returned 0 results</p>"; 
